@@ -1,0 +1,28 @@
+name: Omagari Hotel Checker
+
+on:
+  schedule:
+    # 🕒 15分ごとに自動実行する設定（世界標準時なので日本の時間に計算されます）
+    - cron: '*/15 * * * *'
+  workflow_dispatch: # ボタンを押して手動でいつでも動かせる設定
+
+jobs:
+  check-hotel:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: コードをチェックアウト
+      uses: actions/checkout@v4
+
+    - name: Pythonの準備
+      uses: actions/setup-python@v5
+      with:
+        python-level: '3.11'
+
+    - name: 必要な道具（requests）を入れる
+      run: |
+        pip install requests
+
+    - name: ホテルチェッカーを実行！
+      run: |
+        python hotel.py
