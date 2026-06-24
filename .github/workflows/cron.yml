@@ -1,0 +1,32 @@
+name: Omagari Hotel Checker
+
+on:
+  schedule:
+    # 🕒 15分ごとに自動実行する設定
+    - cron: '*/15 * * * *'
+  workflow_dispatch: # ボタンを押して手動でいつでも動かせる設定
+
+jobs:
+  check-hotel:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: コードをチェックアウト
+      uses: actions/checkout@v4
+
+    - name: Pythonの準備
+      uses: actions/setup-python@v5
+      with:
+        python-version: '3.11'
+
+    - name: 必要な道具（requests）を入れる
+      run: |
+        pip install requests
+
+    - name: ホテルチェッカーを実行！
+      env:
+        DISCORD_WEBHOOK_URL: ${{ secrets.DISCORD_WEBHOOK_URL }}
+        RAKUTEN_CLIENT_SECRET: ${{ secrets.RAKUTEN_CLIENT_SECRET }}
+      run: |
+        # 📁 フォルダが深くなっているのを考慮して、hotel.pyを探して実行します
+        python **/hotel.py
