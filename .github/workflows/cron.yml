@@ -2,7 +2,7 @@ name: Omagari Hotel Checker
 
 on:
   schedule:
-    # 🕒 15分ごとに自動実行する設定
+    # 🕒 18分ごとに自動実行する設定
     - cron: '*/18 * * * *'
   workflow_dispatch: # ボタンを押して手動でいつでも動かせる設定
 
